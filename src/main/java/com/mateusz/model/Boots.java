@@ -1,4 +1,4 @@
-package com.mateusz.models;
+package com.mateusz.model;
 
 public class Boots extends Product {
     private int size;

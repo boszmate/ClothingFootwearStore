@@ -1,4 +1,4 @@
-package com.mateusz.models;
+package com.mateusz.model;
 
 public class Cloth extends Product {
     private String size;
