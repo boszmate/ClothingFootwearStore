@@ -1,6 +1,5 @@
 package com.mateusz.service;
 
-import com.mateusz.api.ProductService;
 import com.mateusz.model.Boots;
 import com.mateusz.model.Cloth;
 import com.mateusz.model.Product;
