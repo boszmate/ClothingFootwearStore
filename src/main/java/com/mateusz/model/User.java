@@ -1,6 +1,9 @@
 package com.mateusz.model;
 
 public class User {
+
+    public final static String PRODUCT_SEPARATOR = "#";
+
     private int id;
     private String login;
     private String password;
@@ -26,10 +29,8 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", login=" + login +
-                ", password=" + password +
-                "}";
+        return id + PRODUCT_SEPARATOR +
+                login + PRODUCT_SEPARATOR +
+                password;
     }
 }
