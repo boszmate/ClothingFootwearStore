@@ -1,36 +1,43 @@
 package com.mateusz.service;
 
+import com.mateusz.api.UserDao;
 import com.mateusz.api.UserService;
+import com.mateusz.dao.UserDaoImpl;
+import com.mateusz.exception.UserLoginAlreadyExistException;
+import com.mateusz.exception.UserShortLengthLoginException;
+import com.mateusz.exception.UserShortLengthPasswordException;
 import com.mateusz.model.User;
+import com.mateusz.validator.UserValidator;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
-    List<User> users;
+    private static UserServiceImpl instance = null;
+    private UserDao userDao = UserDaoImpl.getInstance();
+    private UserValidator userValidator = UserValidator.getInstance();
 
-    public UserServiceImpl() {
-        this.users = new ArrayList<User>();
+    private UserServiceImpl() {}
+
+    public static UserServiceImpl getInstance() {
+        if (instance == null) {
+            instance = new UserServiceImpl();
+        }
+        return instance;
     }
 
-    public UserServiceImpl(List<User> users) {
-        this.users = users;
-    }
-
-    public void addUser(User user) {
-        users.add(user);
-    }
-
-    public void removeUserById(int userId) {
-        for(User user:users) {
-            if(user.getId() == userId){
-                users.remove(user);
-                break;
-            }
+    public void addUser(User user) throws IOException, UserLoginAlreadyExistException, UserShortLengthLoginException, UserShortLengthPasswordException {
+        if (userValidator.isValidate(user)) {
+            userDao.saveUser(user);
         }
     }
 
-    public List<User> getAllUsers(){
-        return users;
+    public void removeUserById(int userId) throws IOException {
+        userDao.removeUserById(userId);
+    }
+
+    public List<User> getAllUsers() throws IOException {
+        return userDao.getAllUsers();
     }
 }
