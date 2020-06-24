@@ -9,7 +9,10 @@ public interface ProductService {
     List<Product> getAllProducts() throws IOException;
     Integer getCountOfProducts() throws IOException;
     Product getProductByProductName(String productName) throws IOException;
+
     boolean isProductOnWarehouse(String productName);
     boolean isProductExist(String productName);
     boolean isProductExist(int productId);
+
+    boolean saveProduct(Product product);
 }
