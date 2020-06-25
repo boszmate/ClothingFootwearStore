@@ -3,6 +3,7 @@ package com.mateusz.model;
 public class Product {
 
     public final static String PRODUCT_SEPARATOR = "#";
+    public final static char PRODUCT_TYPE = 'P';
 
     private int id;
     private String productName;
@@ -54,13 +55,18 @@ public class Product {
         this.productCount = productCount;
     }
 
-    @Override
-    public String toString() {
+
+    protected String getBasicProductString() {
         return id + PRODUCT_SEPARATOR +
                 productName + PRODUCT_SEPARATOR +
                 price + PRODUCT_SEPARATOR +
                 weight + PRODUCT_SEPARATOR +
                 color + PRODUCT_SEPARATOR +
                 productCount;
+    }
+
+    @Override
+    public String toString() {
+        return PRODUCT_TYPE + PRODUCT_SEPARATOR + getBasicProductString();
     }
 }

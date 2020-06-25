@@ -1,6 +1,7 @@
 package com.mateusz.model;
 
 public class Cloth extends Product {
+    public final static char PRODUCT_TYPE = 'C';
     private String size;
     private String material;
 
@@ -20,7 +21,8 @@ public class Cloth extends Product {
 
     @Override
     public String toString() {
-        return super.toString() + PRODUCT_SEPARATOR +
+        return PRODUCT_TYPE + PRODUCT_SEPARATOR +
+                getBasicProductString() + PRODUCT_SEPARATOR +
                 size + PRODUCT_SEPARATOR +
                 material;
     }

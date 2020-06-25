@@ -1,6 +1,7 @@
 package com.mateusz.model;
 
 public class Boots extends Product {
+    public final static char PRODUCT_TYPE = 'B';
     private int size;
     private boolean isNatualSkin;
 
@@ -20,7 +21,8 @@ public class Boots extends Product {
 
     @Override
     public String toString() {
-        return super.toString() + PRODUCT_SEPARATOR +
+        return PRODUCT_TYPE + PRODUCT_SEPARATOR +
+                getBasicProductString() + PRODUCT_SEPARATOR +
                 size + PRODUCT_SEPARATOR +
                 isNatualSkin;
     }
