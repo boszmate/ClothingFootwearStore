@@ -10,16 +10,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDaoImpl implements ProductDao {
-    private final String fileName;
+    private static final String fileName = "products.data";
+    private static ProductDaoImpl instance = null;
 
-    public ProductDaoImpl(String fileName){
-        this.fileName = fileName;
+    private ProductDaoImpl() {
         try {
             FileUtils.createNewFile(fileName);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+    }
+
+    public static ProductDaoImpl getInstance() {
+        if (instance == null) {
+            instance = new ProductDaoImpl();
+        }
+
+        return instance;
     }
 
     public void saveProduct(Product product) throws IOException {
