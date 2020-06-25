@@ -13,7 +13,7 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
     private static ProductServiceImpl instance = null;
     private ProductValidator productValidator = ProductValidator.getInstance();
-    private ProductDao productDao = new ProductDaoImpl("products.data", "PRODUCT");
+    private ProductDao productDao = ProductDaoImpl.getInstance();
 
     private ProductServiceImpl() {}
 
