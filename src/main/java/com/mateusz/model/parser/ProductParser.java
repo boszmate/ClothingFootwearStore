@@ -9,15 +9,12 @@ public class ProductParser {
         final char productType = productString.charAt(0);
 
         switch (productType) {
-            case Product.PRODUCT_TYPE: {
+            case Product.PRODUCT_TYPE:
                 return convertToProduct(productString);
-            }
-            case Cloth.PRODUCT_TYPE: {
+            case Cloth.PRODUCT_TYPE:
                 return convertToCloth(productString);
-            }
-            case Boots.PRODUCT_TYPE: {
+            case Boots.PRODUCT_TYPE:
                 return convertToBoots(productString);
-            }
         }
         return null;
     }

@@ -31,10 +31,10 @@ public class UserValidator {
     }
 
     private boolean isLoginLengthNotEnough(String login) {
-        return login.length() >= MIN_LENGTH_LOGIN;
+        return login.length() <= MIN_LENGTH_LOGIN;
     }
 
     private boolean isPasswordLengthNotEnough(String password) {
-        return password.length() >= MIN_LENGTH_PASSWORD;
+        return password.length() <= MIN_LENGTH_PASSWORD;
     }
 }
