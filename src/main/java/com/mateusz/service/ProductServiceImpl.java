@@ -4,6 +4,7 @@ import com.mateusz.api.ProductDao;
 import com.mateusz.api.ProductService;
 import com.mateusz.dao.ProductDaoImpl;
 import com.mateusz.model.Product;
+import com.mateusz.validator.ProductValidator;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.List;
 
 public class ProductServiceImpl implements ProductService {
     private static ProductServiceImpl instance = null;
+    private ProductValidator productValidator = ProductValidator.getInstance();
     private ProductDao productDao = new ProductDaoImpl("products.data", "PRODUCT");
 
     private ProductServiceImpl() {}
@@ -31,7 +33,27 @@ public class ProductServiceImpl implements ProductService {
     }
 
     public Product getProductByProductName(String productName) throws IOException {
-        return productDao.getProductByProductName(productName);
+        List<Product> products = getAllProducts();
+
+        for (Product product : products) {
+            if (product.getProductName().equals(productName)) {
+                return product;
+            }
+        }
+
+        return null;
+    }
+
+    public Product getProductByProductId(int productId) throws IOException {
+        List<Product> products = getAllProducts();
+
+        for (Product product : products) {
+            if (product.getId() == productId) {
+                return product;
+            }
+        }
+
+        return null;
     }
 
     public boolean isProductOnWarehouse(String productName) {
@@ -51,7 +73,7 @@ public class ProductServiceImpl implements ProductService {
         Product product = null;
 
         try {
-            product = productDao.getProductByProductName(productName);
+            product = getProductByProductName(productName);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -63,11 +85,23 @@ public class ProductServiceImpl implements ProductService {
         Product product = null;
 
         try {
-            product = productDao.getProductById(productId);
+            product = getProductByProductId(productId);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         return product != null;
+    }
+
+    public boolean saveProduct(Product product) {
+        try {
+            if (productValidator.isValidate(product)) {
+                productDao.saveProduct(product);
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
     }
 }

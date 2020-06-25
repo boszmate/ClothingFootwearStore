@@ -75,24 +75,4 @@ public class ProductDaoImpl implements ProductDao {
 
         return products;
     }
-
-    public Product getProductById(int productId) throws IOException {
-        List<Product> products = getAllProducts();
-        for (Product product : products) {
-            if (product.getId() == productId) {
-                return product;
-            }
-        }
-        return null;
-    }
-
-    public Product getProductByProductName(String productName) throws IOException {
-        List<Product> products = getAllProducts();
-        for (Product product : products) {
-            if (product.getProductName().equals(productName)) {
-                return product;
-            }
-        }
-        return null;
-    }
 }

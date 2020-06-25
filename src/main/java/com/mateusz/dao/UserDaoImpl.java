@@ -82,24 +82,4 @@ public class UserDaoImpl implements UserDao {
 
         return users;
     }
-
-    public User getUserById(int userId) throws IOException {
-        List<User> users = getAllUsers();
-        for (User user : users) {
-            if (user.getId() == userId) {
-                return user;
-            }
-        }
-        return null;
-    }
-
-    public User getUserByLogin(String login) throws IOException {
-        List<User> users = getAllUsers();
-        for (User user : users) {
-            if (user.getLogin().equals(login)) {
-                return user;
-            }
-        }
-        return null;
-    }
 }
