@@ -11,11 +11,9 @@ import java.util.List;
 
 public class ProductDaoImpl implements ProductDao {
     private final String fileName;
-    private final String productType;
 
-    public ProductDaoImpl(String fileName, String productType){
+    public ProductDaoImpl(String fileName){
         this.fileName = fileName;
-        this.productType = productType;
         try {
             FileUtils.createNewFile(fileName);
         } catch (IOException e) {
@@ -65,7 +63,7 @@ public class ProductDaoImpl implements ProductDao {
 
         String readLine = bufferedReader.readLine();
         while (readLine != null) {
-            Product product = ProductParser.stringToProduct(readLine, productType);
+            Product product = ProductParser.stringToProduct(readLine);
             if (product != null) {
                 products.add(product);
             }
