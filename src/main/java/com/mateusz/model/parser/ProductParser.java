@@ -1,26 +1,27 @@
 package com.mateusz.model.parser;
 
+import com.mateusz.enums.ProductSeparators;
 import com.mateusz.model.Boots;
 import com.mateusz.model.Cloth;
 import com.mateusz.model.Product;
 
 public class ProductParser {
     public static Product stringToProduct(String productString) {
-        final char productType = productString.charAt(0);
+        final ProductSeparators productType = ProductSeparators.getIdBySign(productString.substring(0,1));
 
         switch (productType) {
-            case Product.PRODUCT_TYPE:
+            case PRODUCT_ID:
                 return convertToProduct(productString);
-            case Cloth.PRODUCT_TYPE:
+            case CLOTH_ID:
                 return convertToCloth(productString);
-            case Boots.PRODUCT_TYPE:
+            case BOOTS_ID:
                 return convertToBoots(productString);
         }
         return null;
     }
 
     private static Product convertToProduct(String productString) {
-        String [] productInformation = productString.split(Product.PRODUCT_SEPARATOR);
+        String [] productInformation = productString.split(ProductSeparators.PRODUCT_SEPARATOR.toString());
 
         int id = Integer.parseInt(productInformation[1]);
         String productName = productInformation[2];
@@ -33,7 +34,7 @@ public class ProductParser {
     }
 
     private static Product convertToCloth(String productString) {
-        String [] productInformation = productString.split(Product.PRODUCT_SEPARATOR);
+        String [] productInformation = productString.split(ProductSeparators.PRODUCT_SEPARATOR.toString());
 
         int id = Integer.parseInt(productInformation[1]);
         String productName = productInformation[2];
@@ -48,7 +49,7 @@ public class ProductParser {
     }
 
     private static Product convertToBoots(String productString) {
-        String [] productInformation = productString.split(Product.PRODUCT_SEPARATOR);
+        String [] productInformation = productString.split(ProductSeparators.PRODUCT_SEPARATOR.toString());
 
         int id = Integer.parseInt(productInformation[1]);
         String productName = productInformation[2];

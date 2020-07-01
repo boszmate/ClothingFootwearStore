@@ -1,10 +1,8 @@
 package com.mateusz.model;
 
+import com.mateusz.enums.ProductSeparators;
+
 public class Product {
-
-    public final static String PRODUCT_SEPARATOR = "#";
-    public final static char PRODUCT_TYPE = 'P';
-
     private int id;
     private String productName;
     private float price;
@@ -57,16 +55,16 @@ public class Product {
 
 
     protected String getBasicProductString() {
-        return id + PRODUCT_SEPARATOR +
-                productName + PRODUCT_SEPARATOR +
-                price + PRODUCT_SEPARATOR +
-                weight + PRODUCT_SEPARATOR +
-                color + PRODUCT_SEPARATOR +
+        return id + ProductSeparators.PRODUCT_SEPARATOR.toString() +
+                productName + ProductSeparators.PRODUCT_SEPARATOR.toString() +
+                price + ProductSeparators.PRODUCT_SEPARATOR.toString() +
+                weight + ProductSeparators.PRODUCT_SEPARATOR.toString() +
+                color + ProductSeparators.PRODUCT_SEPARATOR.toString() +
                 productCount;
     }
 
     @Override
     public String toString() {
-        return PRODUCT_TYPE + PRODUCT_SEPARATOR + getBasicProductString();
+        return ProductSeparators.PRODUCT_ID + ProductSeparators.PRODUCT_SEPARATOR.toString() + getBasicProductString();
     }
 }
