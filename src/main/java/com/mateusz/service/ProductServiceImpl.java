@@ -28,7 +28,7 @@ public class ProductServiceImpl implements ProductService {
         return productDao.getAllProducts();
     }
 
-    public Integer getCountOfProducts() throws IOException {
+    public int getCountOfProducts() throws IOException {
         return getAllProducts().size();
     }
 

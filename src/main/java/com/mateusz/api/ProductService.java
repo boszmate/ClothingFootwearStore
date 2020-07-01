@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ProductService {
     List<Product> getAllProducts() throws IOException;
-    Integer getCountOfProducts() throws IOException;
+    int getCountOfProducts() throws IOException;
     Product getProductByProductName(String productName) throws IOException;
     Product getProductByProductId(int productId) throws IOException;
 
