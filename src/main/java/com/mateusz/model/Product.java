@@ -1,5 +1,6 @@
 package com.mateusz.model;
 
+import com.mateusz.enums.Color;
 import com.mateusz.enums.ProductSeparators;
 
 public class Product {
@@ -7,10 +8,10 @@ public class Product {
     private String productName;
     private float price;
     private float weight;
-    private String color;
+    private Color color;
     private int productCount;
 
-    public Product(int id, String productName, float price, float weight, String color, int productCount) {
+    public Product(int id, String productName, float price, float weight, Color color, int productCount) {
         this.id = id;
         this.productName = productName;
         this.price = price;
@@ -36,7 +37,7 @@ public class Product {
         return weight;
     }
 
-    public String getColor() {
+    public Color getColor() {
         return color;
     }
 

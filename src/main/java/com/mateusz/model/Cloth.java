@@ -1,12 +1,14 @@
 package com.mateusz.model;
 
+import com.mateusz.enums.Color;
+import com.mateusz.enums.Material;
 import com.mateusz.enums.ProductSeparators;
 
 public class Cloth extends Product {
     private String size;
-    private String material;
+    private Material material;
 
-    public Cloth(int id, String productName, float price, float weight, String color, int productCount, String size, String material) {
+    public Cloth(int id, String productName, float price, float weight, Color color, int productCount, String size, Material material) {
         super(id, productName, price, weight, color, productCount);
         this.size = size;
         this.material = material;
@@ -16,7 +18,7 @@ public class Cloth extends Product {
         return size;
     }
 
-    public String getMaterial() {
+    public Material getMaterial() {
         return material;
     }
 

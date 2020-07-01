@@ -1,6 +1,9 @@
 package com.mateusz.model.parser;
 
+import com.mateusz.enums.Color;
+import com.mateusz.enums.Material;
 import com.mateusz.enums.ProductSeparators;
+import com.mateusz.enums.SkinType;
 import com.mateusz.model.Boots;
 import com.mateusz.model.Cloth;
 import com.mateusz.model.Product;
@@ -27,7 +30,7 @@ public class ProductParser {
         String productName = productInformation[2];
         float price = Float.parseFloat(productInformation[3]);
         float weight = Float.parseFloat(productInformation[4]);
-        String color = productInformation[5];
+        Color color = ColorParser.parserStringToColor(productInformation[5]);
         int productCount = Integer.parseInt(productInformation[6]);
 
         return new Product(id, productName,price, weight, color, productCount);
@@ -40,10 +43,10 @@ public class ProductParser {
         String productName = productInformation[2];
         float price = Float.parseFloat(productInformation[3]);
         float weight = Float.parseFloat(productInformation[4]);
-        String color = productInformation[5];
+        Color color = ColorParser.parserStringToColor(productInformation[5]);
         int productCount = Integer.parseInt(productInformation[6]);
         String size = productInformation[7];
-        String material = productInformation[8];
+        Material material = MaterialParser.parserStringToMaterial(productInformation[8]);
 
         return new Cloth(id, productName,price, weight, color, productCount, size, material);
     }
@@ -55,11 +58,11 @@ public class ProductParser {
         String productName = productInformation[2];
         float price = Float.parseFloat(productInformation[3]);
         float weight = Float.parseFloat(productInformation[4]);
-        String color = productInformation[5];
+        Color color = ColorParser.parserStringToColor(productInformation[5]);
         int productCount = Integer.parseInt(productInformation[6]);
         int size = Integer.parseInt(productInformation[7]);
-        boolean isNaturalSkin = Boolean.parseBoolean(productInformation[8]);
+        SkinType skinType = SkinParser.parserStringToSkin(productInformation[8]);
 
-        return new Boots(id, productName,price, weight, color, productCount, size, isNaturalSkin);
+        return new Boots(id, productName,price, weight, color, productCount, size, skinType);
     }
 }
