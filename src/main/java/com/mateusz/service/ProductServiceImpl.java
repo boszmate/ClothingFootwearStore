@@ -3,6 +3,10 @@ package com.mateusz.service;
 import com.mateusz.api.ProductDao;
 import com.mateusz.api.ProductService;
 import com.mateusz.dao.ProductDaoImpl;
+import com.mateusz.exception.ProductCountNegativeException;
+import com.mateusz.exception.ProductNameEmptyException;
+import com.mateusz.exception.ProductPriceNoPositiveException;
+import com.mateusz.exception.ProductWeightNoPositiveException;
 import com.mateusz.model.Product;
 import com.mateusz.validator.ProductValidator;
 
@@ -55,52 +59,36 @@ public class ProductServiceImpl implements ProductService {
         return null;
     }
 
-    public boolean isProductOnWarehouse(String productName) {
-        try {
-            for (Product product : getAllProducts()) {
-                if (isProductExist(productName) && product.getProductCount() > 0) {
-                    return true;
-                }
+    public boolean isProductOnWarehouse(String productName) throws IOException {
+        for (Product product : getAllProducts()) {
+            if (isProductExist(productName) && product.getProductCount() > 0) {
+                return true;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+
         return false;
     }
 
-    public boolean isProductExist(String productName) {
-        Product product = null;
+    public void removeProduct(String productName) throws Exception {
+        productDao.removeProductByName(productName);
+    }
 
-        try {
-            product = getProductByProductName(productName);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+    public boolean isProductExist(String productName) throws IOException {
+        Product product = getProductByProductName(productName);
         return product != null;
     }
 
-    public boolean isProductExist(int productId) {
-        Product product = null;
-
-        try {
-            product = getProductByProductId(productId);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+    public boolean isProductExist(int productId) throws IOException {
+        Product product = getProductByProductId(productId);
         return product != null;
     }
 
-    public boolean saveProduct(Product product) {
-        try {
-            if (productValidator.isValidate(product)) {
-                productDao.saveProduct(product);
-                return true;
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+    public boolean saveProduct(Product product) throws IOException, ProductWeightNoPositiveException, ProductNameEmptyException, ProductCountNegativeException, ProductPriceNoPositiveException {
+        if (productValidator.isValidate(product)) {
+            productDao.saveProduct(product);
+            return true;
         }
+
         return false;
     }
 }

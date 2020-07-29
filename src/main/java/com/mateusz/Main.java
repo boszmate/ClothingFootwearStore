@@ -1,10 +1,12 @@
 package com.mateusz;
 
+import com.mateusz.api.ProductFacade;
 import com.mateusz.api.ProductService;
 import com.mateusz.api.UserRegisterLoginFacade;
 import com.mateusz.enums.Color;
 import com.mateusz.enums.Material;
 import com.mateusz.enums.SkinType;
+import com.mateusz.facade.ProductFacadeImpl;
 import com.mateusz.facade.UserRegisterLoginFacadeImpl;
 import com.mateusz.model.Boots;
 import com.mateusz.model.Cloth;
@@ -24,12 +26,14 @@ public class Main {
         System.out.println("App Menu");
         System.out.println("1. Log in");
         System.out.println("2. Register");
-        System.out.println("3. Exit");
+        System.out.println("0. Exit");
     }
 
     public static void loggedMenu() {
         System.out.println("App Menu");
         System.out.println("1. Add new product");
+        System.out.println("2. Remove product");
+        System.out.println("3. Show all products");
         System.out.println("0. Log out");
     }
 
@@ -129,6 +133,7 @@ public class Main {
 
     public static void main(String[] args) {
         UserRegisterLoginFacade userFacade = UserRegisterLoginFacadeImpl.getInstance();
+        ProductFacade productFacade = ProductFacadeImpl.getInstance();
         ProductService productService = ProductServiceImpl.getInstance();
         boolean appOn = true;
         boolean loggedOn = false;
@@ -157,14 +162,9 @@ public class Main {
                     System.out.print("Type password: ");
                     String passwordReg = scanner.next();
                     User user = new User(1, loginReg, passwordReg);
-                    if (userFacade.registerUser(user)) {
-                        loggedOn = true;
-                        System.out.println("Success! You registered!");
-                    } else {
-                        System.out.println("Something wrong with registration!");
-                    }
+                    userFacade.registerUser(user);
                     break;
-                case 3:
+                case 0:
                     appOn = false;
                     break;
             }
@@ -189,11 +189,17 @@ public class Main {
                                 product = createOtherProduct();
                                 break;
                         }
-                        if (productService.saveProduct(product)) {
-                            System.out.println("Product was created!");
-                        } else {
-                            System.out.println("Product wasn't created!");
-                        }
+                        System.out.println(productFacade.createProduct(product));
+                        break;
+                    case 2:
+                        System.out.println("Available products: " + productFacade.getAllProducts());
+                        System.out.println("Type name of product to delete: ");
+                        String productToDelete = scanner.next();
+                        System.out.println(productFacade.removeProduct(productToDelete));
+                        break;
+                    case 3:
+                        System.out.println("Available products: " + productFacade.getAllProducts());
+                        break;
                     case 0:
                         loggedOn = false;
                         break;

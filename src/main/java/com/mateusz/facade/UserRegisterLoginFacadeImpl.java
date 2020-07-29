@@ -2,6 +2,9 @@ package com.mateusz.facade;
 
 import com.mateusz.api.UserRegisterLoginFacade;
 import com.mateusz.api.UserService;
+import com.mateusz.exception.UserLoginAlreadyExistException;
+import com.mateusz.exception.UserShortLengthLoginException;
+import com.mateusz.exception.UserShortLengthPasswordException;
 import com.mateusz.model.User;
 import com.mateusz.service.UserServiceImpl;
 
@@ -19,8 +22,20 @@ public class UserRegisterLoginFacadeImpl implements UserRegisterLoginFacade {
         return instance;
     }
 
-    public boolean registerUser(User user) {
-        return userService.addUser(user);
+    public String registerUser(User user) {
+        try {
+            userService.addUser(user);
+            return "Register successfully";
+        } catch (UserLoginAlreadyExistException e) {
+            e.printStackTrace();
+            return e.getMessage();
+        } catch (UserShortLengthLoginException e) {
+            e.printStackTrace();
+            return e.getMessage();
+        } catch (UserShortLengthPasswordException e) {
+            e.printStackTrace();
+            return e.getMessage();
+        }
     }
 
     public boolean loginUser(String login, String password) {
